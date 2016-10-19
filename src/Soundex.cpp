@@ -23,16 +23,19 @@ string Soundex::encode(const string& p_name)
     string l_result = p_name;
     toLower(l_result);    
 
-    unsigned char firstLetter = l_result[0];
-    l_result.erase(0, 1);
+    if(1 < l_result.length())
+    {
+        unsigned char firstLetter = l_result[0];
+        l_result.erase(0, 1);
     
-    convertToNumbers(l_result);
-    removeSpecialLetters(l_result);
-    removeSameNumbers(l_result);
-    removeVowelLetters(l_result);
+        convertToNumbers(l_result);
+        removeSpecialLetters(l_result);
+        removeSameNumbers(l_result);
+        removeVowelLetters(l_result);
 
-    l_result.insert(0, 1, firstLetter);
-    removeTheSameNumWithFirst(l_result);
+        l_result.insert(0, 1, firstLetter);
+        removeTheSameNumWithFirst(l_result);
+    }
 
     l_result.resize(4,'0');
 

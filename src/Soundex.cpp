@@ -22,11 +22,17 @@ string Soundex::encode(const string& p_name)
 
     string l_result = p_name;
     toLower(l_result);    
+
+    unsigned char firstLetter = l_result[0];
+    l_result.erase(0, 1);
     
     convertToNumbers(l_result);
     removeSpecialLetters(l_result);
     removeSameNumbers(l_result);
     removeVowelLetters(l_result);
+
+    l_result.insert(0, 1, firstLetter);
+    removeTheSameNumWithFirst(l_result);
 
     l_result.resize(4,'0');
 
@@ -37,7 +43,7 @@ void Soundex::convertToNumbers(string & p_result)
 {
     try 
     {
-        transform(p_result.begin() + 1, p_result.end(), p_result.begin() + 1, [](unsigned char c){return m_encodeTab.at(c);});
+        transform(p_result.begin(), p_result.end(), p_result.begin(), [](unsigned char c){return m_encodeTab.at(c);});
     }
     catch (out_of_range)
     {
@@ -52,8 +58,7 @@ void Soundex::toLower(string & p_result)
 
 void Soundex::removeSameNumbers(string & p_result)
 {    
-    p_result.erase(std::unique(p_result.begin() + 1, p_result.end()), p_result.end());
-    removeTheSameNumWithFirst(p_result);
+    p_result.erase(std::unique(p_result.begin(), p_result.end()), p_result.end());
 }
 
 void Soundex::removeTheSameNumWithFirst(string & p_result)
@@ -76,10 +81,10 @@ void Soundex::removeTheSameNumWithFirst(string & p_result)
 
 void Soundex::removeVowelLetters(string & p_result)
 {
-    p_result.erase(std::remove(p_result.begin() + 1, p_result.end(), '0'), p_result.end());
+    p_result.erase(std::remove(p_result.begin(), p_result.end(), '0'), p_result.end());
 }
 
 void Soundex::removeSpecialLetters(string& p_result)
 {
-    p_result.erase(std::remove(p_result.begin() + 1, p_result.end(), '7'), p_result.end());
+    p_result.erase(std::remove(p_result.begin(), p_result.end(), '7'), p_result.end());
 }

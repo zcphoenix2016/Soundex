@@ -7,7 +7,11 @@ void encodeAndPrint(const std::string& p_str)
     std::cout << "\"" << p_str << "\" was encoded as \"" << Soundex::encode(p_str) << "\"" << std::endl;
 }
 
-int main()
+#ifndef UNIT_TEST
+int main(int argc, char** argv)
+#else
+int ut_main(int argc, char** argv)
+#endif
 {
     std::string str0{"Robert"}, str1{"Rubert"}, str2{"Rubin"}, str3{"Ashcraft"}, str4{"Ashcroft"}, 
                 str5{"Tymczak"}, str6{"Pfister"};

@@ -11,7 +11,7 @@ all:
 	g++ -std=c++14 *.cpp -o Soundex -g
 
 ut:
-	g++ -std=c++14 ${UTFLAG} ${UTINC} ${UTLIB} *.cpp Test_modules/*.cpp -o ut_Soundex  
+	g++ -std=c++14 ${UTFLAG} ${UTINC} ${UTLIB} *.cpp Test_modules/*.cpp -o ut_Soundex
 
 clean:
 	rm -rf *.o
